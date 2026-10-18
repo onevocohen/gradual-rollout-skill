@@ -99,7 +99,7 @@ Adjustments:
 - **Short timeline** → collapse waves (e.g. 5% → 35% → 100%)
 - **High ARR sensitivity** → hold high-ARR tenants to wave 4 with extended bake time
 
-For each wave include: %, cohort description, go/no-go gate (metric + bake time), owner.
+For each wave include: %, cohort description, **go/no-go gate (metric + bake time)**, owner. Go/no-go gates are mandatory — never omit them. If the PRD defines success metrics, use them. If not, apply defaults: signing/feature success rate ≥99.5%, error rate delta <0.1%, p99 latency regression <5%, support ticket spike <3 per 1,000 tenants, minimum bake time 48 h for early waves and 1 week for high-ARR waves.
 
 ---
 
