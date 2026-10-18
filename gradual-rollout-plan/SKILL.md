@@ -17,35 +17,35 @@ Read the PRD in full. Infer every signal below from the content. Do not ask the 
 |--------|-----------------|
 | **NFI** | "NFI" label, "new feature", "not previously available", net-new capability with no prior version |
 | **Impact** | Scope of affected users/tenants, "critical path" / "core workflow" language, data sensitivity, risk of data loss or service disruption |
-| **Rollback complexity** | Schema migrations, data writes, third-party dependencies, customer comms required, irreversible state → Coordinated or Irreversible. Flag flip only → Easy |
-| **Region constraints** | GDPR, FedRAMP, data residency, geography-specific requirements |
+| **Rollback complexity** | Schema migrations, data writes, third-party dependencies, customer comms required, irreversible state → Coordinated or Irreversible. Flag flip only → Easy. If not mentioned at all → must ask |
+| **Region constraints** | GDPR, FedRAMP, data residency, geography-specific requirements, "starting with [region]", "[region] only", "[region] first", "limited to [region]" |
 | **Service constraints** | Named services, integrations, or components the feature depends on or modifies |
-| **Earliest start** | Sprint dates, milestone dates, "ready for QA" signals |
+| **Early tester readiness** | "ready for QA", sprint completion dates, alpha/beta dates — when the feature is stable enough for first external exposure |
 | **Target GA** | Committed launch date, OKR deadline, release milestone |
 
-**After reading**, present your inferences — do not ask open questions:
+**After reading**, present your inferences — do not ask open questions. For any signal not found in the PRD, mark it as ❓ and ask a targeted question at the end:
 
 ```
 Based on the PRD, here is how I've read this release:
 
-- NFI:               [Yes / No — reason]
-- Impact:            [High / Medium / Low — reason]
-- Rollback:          [Easy / Coordinated / Irreversible — reason]
-- Region constraints:[None / list — reason]
-- Service constraints:[None / list — reason]
-- Earliest start:    [date or "not found in PRD"]
-- Target GA:         [date or "not found in PRD"]
-
-→ Release path: [LIGHTWEIGHT / STANDARD / HIGH-TOUCH]
+- NFI:               [Yes / No — reason]  or  ❓ Not clear from PRD
+- Impact:            [High / Medium / Low — reason]  or  ❓ Not clear from PRD
+- Rollback:          [Easy / Coordinated / Irreversible — reason]  or  ❓ Not mentioned
+- Region constraints:[None / list — reason]  or  ❓ Not mentioned
+- Service constraints:[None / list — reason]  or  ❓ Not mentioned
+- Ready for early testers: [date — reason]  or  ❓ Not found in PRD
+- Target GA:         [date — reason]  or  ❓ Not found in PRD
 ```
 
-**Fallback — only if a signal cannot be inferred:** ask a targeted, closed question for that specific signal only. Examples:
+Then ask **only** the ❓ questions, using these exact forms:
 
-- Impact missing → "I couldn't determine impact from the PRD. Is this feature High, Medium, or Low impact on customers?"
-- Rollback missing → "The PRD doesn't describe rollback. If this goes wrong, is it a simple flag flip (Easy), does it need migrations or customer comms (Coordinated), or is it irreversible?"
-- Dates missing → "What is the target GA date?"
+- **Rollback not mentioned** → "Is a rollback plan in place? Options: (1) Easy — simple flag flip, reverts instantly. (2) Coordinated — requires data migration, script, or customer comms. (3) Not defined yet — rollback strategy still to be designed."
+- **Impact not clear** → "How would you describe the customer impact if something goes wrong? High (affects core workflows or many tenants), Medium (limited to a specific service or subset), or Low (cosmetic / easily reversible)?"
+- **Ready for early testers not found** → "When will the feature be ready for early testers to start validating?"
+- **Target GA not found** → "What is the target GA date or timeframe?"
+- **Region not mentioned** → "Are there any region constraints? For example, starting with a specific region (EMEA, US, APAC) before expanding globally?"
 
-Do not ask about signals you already resolved from the PRD.
+Do not assume any value. Do not ask about signals you already resolved from the PRD.
 
 ---
 
