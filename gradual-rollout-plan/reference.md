@@ -1,5 +1,52 @@
 # Gradual Rollout Plan — Reference
 
+## Worked Example — NFI, High Impact, 3-month GA
+
+**Scenario:** A PM pastes a PRD for a new identity verification feature. The PRD says "not previously available to customers", "affects all login flows", "requires a database schema migration", and has a target launch in Q1.
+
+**Step 1 — Inferences:**
+```
+- NFI:               Yes — "not previously available to customers"
+- Impact:            High — "affects all login flows"
+- Rollback:          Coordinated — "database schema migration" required
+- Region constraints:None — no regulatory language found
+- Service constraints:Identity Service, Auth Service — named in PRD
+- Earliest start:    Now (no blocking dependencies mentioned)
+- Target GA:         3 months (Q1 target)
+
+→ Release path: HIGH-TOUCH (NFI = Yes)
+```
+
+**Step 2 — Required Rings:** R0 → R1 → R2 → R3 → R4
+
+**Step 3 — R3 Cohort Plan:**
+
+| Wave | % | Who | Targeting | Go/No-Go Gate |
+|------|---|-----|-----------|---------------|
+| 0 | — | Test Tenants | `tenant_type = "test"` | No incidents for 48 h |
+| 1 | 5% | Low ARR | `arr_tier = "low" AND deployed_services CONTAINS "identity"` | Error rate <0.1% for 48 h |
+| 2 | 15% | Low–mid ARR | `arr_tier IN ["low","mid-low"] AND deployed_services CONTAINS "identity"` | Error rate <0.1% for 48 h |
+| 3 | 35% | Mid ARR | `arr_tier = "mid"` | Error rate <0.1%, p99 latency <5% regression for 72 h |
+| 4 | 65% | Mid–high ARR | `arr_tier IN ["mid","mid-high"]` | 1 week bake, <3 tickets per 1,000 tenants |
+| 5 | 100% | All eligible | Remove all filters | 48 h stable → PM go/no-go |
+
+**Step 4 — LaunchDarkly Setup:**
+
+Flag key: `identity-verification-rollout`
+
+Production targeting rules:
+```
+Wave 0: tenant_type = "test"  →  true
+Wave 1: tenant_type = "live" AND arr_tier = "low" AND deployed_services CONTAINS "identity"  →  5% rollout
+Wave 2: expand arr_tier filter, increment to 15%
+Wave 3: expand arr_tier = "mid", increment to 35%
+Wave 4: expand arr_tier to "mid-high", increment to 65%, extended bake
+Wave 5: remove arr_tier filter, 100%
+Rollback: set flag to false in production → immediate revert
+```
+
+---
+
 ## Framework Principles
 
 - **PM owns intent.** The PM defines what changes, who is affected, impact, rollback path, earliest start, and target GA.
