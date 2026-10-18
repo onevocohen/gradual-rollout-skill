@@ -1,6 +1,6 @@
 ---
 name: gradual-rollout-plan
-description: Guides a Product Manager through building a structured gradual release plan based on the Idira Gradual Release Framework. Use when a PM asks to create a rollout plan, release plan, gradual rollout, canary plan, or release strategy for a feature. Also use when the PM mentions NFI, release rings, LaunchDarkly flags, or customer exposure waves.
+description: Guides a Product Manager through building a structured gradual release plan based on the Idira Gradual Release Framework. Use when a PM says anything like "build a gradual rollout plan", "build me a rollout strategy", "create a release plan", "rollout strategy", "release strategy", "how should I roll this out", "canary plan", "feature rollout", or mentions NFI, release rings, LaunchDarkly flags, or customer exposure waves.
 ---
 
 # Gradual Rollout Plan
