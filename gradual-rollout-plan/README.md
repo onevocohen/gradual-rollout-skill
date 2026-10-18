@@ -8,7 +8,7 @@ A Cursor Agent Skill that guides a Product Manager through building a structured
 
 Given a PRD or feature description, the skill:
 
-1. Asks the PM 8 intake questions (reads the PRD first and only asks for what's missing)
+1. Reads the PRD and infers NFI status, impact, rollback complexity, region and service constraints, and dates — then presents its conclusions for a quick PM confirm rather than asking questions
 2. Classifies the release into one of three paths — **Lightweight**, **Standard**, or **High-Touch**
 3. Maps the mandatory release rings (R0–R4) with clear R&D vs. PM ownership
 4. Builds a tailored **R3 Production Canary cohort plan** with exposure waves, targeting criteria, and go/no-go gates

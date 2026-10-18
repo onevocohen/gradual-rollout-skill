@@ -7,22 +7,39 @@ description: Guides a Product Manager through building a structured gradual rele
 
 Generates a structured release plan following the Idira Gradual Release Framework: classify the release path, identify mandatory rings, and produce a tailored R3 cohort plan.
 
-## Step 1 — PM Intake
+## Step 1 — Read and Infer from the PRD
 
-Ask the PM for the following (check the PRD first; only ask for what's missing):
+Read the PRD in full. Infer every signal below directly from the content — do not ask the PM for information you can determine yourself.
 
-| # | Question | Accepted values |
-|---|----------|-----------------|
-| 1 | **Feature name / PRD link** | Free text |
-| 2 | **Is this a New Feature Introduction (NFI)?** | Yes / No |
-| 3 | **Customer-facing impact** | High / Medium / Low |
-| 4 | **Rollback complexity** | Easy (flag flip) / Coordinated (requires migration/comms) / Irreversible |
-| 5 | **Region constraints** | None / Specific regions (list them) |
-| 6 | **Service constraints** | None / Specific services (list them) |
-| 7 | **Earliest start date** | Date or "Now" |
-| 8 | **Target GA date** | Date or timeframe (e.g. "3 months") |
+| Signal | What to look for in the PRD |
+|--------|-----------------------------|
+| **NFI** | Explicit "NFI" label, "new feature", "not previously available", or net-new capability with no prior version |
+| **Impact** | Scope of affected users/tenants, criticality language ("critical path", "core workflow"), data sensitivity, potential for data loss or service disruption |
+| **Rollback complexity** | Mentions of schema migrations, data writes, third-party dependencies, customer comms required, or irreversible state changes → Coordinated or Irreversible. Flag flip only → Easy |
+| **Region constraints** | Regulatory mentions (GDPR, FedRAMP, data residency), geography-specific requirements, or region-scoped rollout language |
+| **Service constraints** | Named services, integrations, or components the feature depends on or affects |
+| **Earliest start** | Sprint dates, milestone dates, or "ready for QA" signals in the PRD |
+| **Target GA** | Committed launch date, OKR deadline, or release milestone |
 
-If the PRD answers any question, use that answer and note it. Do not ask for information already supplied.
+After reading, present your inferences to the PM in this format — **do not ask open questions**:
+
+```
+Based on the PRD, here is how I've classified this release:
+
+- NFI: [Yes / No / Unclear — reason]
+- Impact: [High / Medium / Low — reason]
+- Rollback: [Easy / Coordinated / Irreversible — reason]
+- Region constraints: [None / list — reason]
+- Service constraints: [None / list — reason]
+- Earliest start: [date or "not found"]
+- Target GA: [date or "not found"]
+
+→ Release path: [LIGHTWEIGHT / STANDARD / HIGH-TOUCH]
+
+Please confirm or correct any of the above before I generate the plan.
+```
+
+Only ask an explicit question if a signal is genuinely absent from the PRD (e.g. no dates mentioned at all).
 
 ---
 
